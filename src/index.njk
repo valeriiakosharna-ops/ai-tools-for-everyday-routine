@@ -1,0 +1,35 @@
+---
+layout: base.njk
+title: Менше рутини. Більше можливостей
+pageId: home
+---
+{% from "icons.njk" import icon %}
+<section class="home-hero">
+  <div class="container home-hero-grid">
+    <div class="home-hero-copy">
+      <p class="eyebrow"><span class="small-line"></span> ШТУЧНИЙ ІНТЕЛЕКТ У ПОВСЯКДЕННІ</p>
+      <h1>Менше рутини.<br>Більше <span class="text-blue">можливостей.</span></h1>
+      <p class="hero-description">ШІ вже поруч. Навчіться обирати правильні інструменти, доручати їм задачі та звільняти час для важливого.</p>
+      <a class="button button-primary" href="{{ '/taxonomy/' | siteUrl }}">Познайомитися з інструментами {{ icon('arrow') }}</a>
+      <div class="hero-footnote"><span class="mini-check">{{ icon('check', '', 14) }}</span> Зрозумілою мовою. З прикладами з життя.</div>
+    </div>
+    <div class="hero-visual" aria-hidden="true">
+      <div class="visual-grid"></div><div class="orbit orbit-one"></div><div class="orbit orbit-two"></div>
+      <span class="visual-plus plus-one">+</span><span class="visual-plus plus-two">+</span>
+      <div class="visual-label">ВАША ЗАДАЧА → НОВІ МОЖЛИВОСТІ</div>
+      <div class="floating-card floating-chat"><span class="visual-icon blue-icon">{{ icon('chat') }}</span><div><strong>Зрозуміти складне</strong><span>Пояснення та нові ідеї</span></div><span class="card-index">01</span></div>
+      <div class="floating-card floating-book"><span class="visual-icon pink-icon">{{ icon('book') }}</span><div><strong>Знайти головне</strong><span>Робота з вашими джерелами</span></div><span class="card-index">02</span></div>
+      <div class="floating-card floating-code"><span class="visual-icon dark-icon">{{ icon('code') }}</span><div><strong>Доручити виконання</strong><span>Від задуму до результату</span></div><span class="card-index">03</span></div>
+      <div class="visual-sticker">{{ icon('spark', '', 20) }} Більше часу на своє</div>
+    </div>
+  </div>
+</section>
+<section class="section home-path" aria-labelledby="path-title"><div class="container">
+  <div class="section-heading"><div><p class="eyebrow">ВАШ МАРШРУТ</p><h2 id="path-title">Від знайомства — до впевненості</h2></div><p>Три кроки, щоб зробити ШІ<br>своїм щоденним помічником.</p></div>
+  <div class="path-grid">
+    <a class="path-card available" href="{{ '/taxonomy/' | siteUrl }}"><div class="path-card-top"><span class="path-number">01 / РОЗІБРАТИСЯ</span><span class="badge badge-live">Доступно</span></div><span class="path-icon">{{ icon('book', '', 32) }}</span><h3>Який інструмент<br>для якої задачі?</h3><p>Чотири способи взаємодії та шість інструментів. Знайдіть помічника під свій запит.</p><span class="path-link">Відкрити путівник {{ icon('arrow') }}</span></a>
+    <a class="path-card" href="{{ '/practice/' | siteUrl }}"><div class="path-card-top"><span class="path-number">02 / СПРОБУВАТИ</span><span class="badge">Незабаром</span></div><span class="path-icon muted-icon">{{ icon('target', '', 32) }}</span><h3>Практика на<br>реальних задачах</h3><p>Листи, плани, дослідження та щоденні справи. Відпрацьовуйте навички крок за кроком.</p><span class="path-link">Що буде в розділі {{ icon('arrow') }}</span></a>
+    <a class="path-card" href="{{ '/simulators/' | siteUrl }}"><div class="path-card-top"><span class="path-number">03 / ЗРОЗУМІТИ</span><span class="badge">Незабаром</span></div><span class="path-icon muted-icon">{{ icon('layers', '', 32) }}</span><h3>Що у ШІ<br>під капотом?</h3><p>Токени, контекстна пам’ять і векторні бази даних. Складні поняття через наочні симуляції.</p><span class="path-link">Про майбутні тренажери {{ icon('arrow') }}</span></a>
+  </div>
+</div></section>
+<section class="container"><div class="principle-strip"><span class="principle-symbol" aria-hidden="true">{{ icon('spark', '', 60) }}</span><div><p class="eyebrow">ПОЧНІТЬ З РЕЗУЛЬТАТУ</p><h2>Спочатку задача. Потім — інструмент.</h2><p>Не потрібно знати всі сервіси. Достатньо зрозуміти, який результат вам потрібен.</p></div><a class="button button-light" href="{{ '/taxonomy/#choose' | siteUrl }}">Знайти свій інструмент {{ icon('arrow') }}</a></div></section>
