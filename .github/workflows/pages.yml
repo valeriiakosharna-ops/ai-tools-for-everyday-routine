@@ -1,0 +1,70 @@
+name: Build and deploy Pages
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Detect Pages path
+        id: pages-path
+        env:
+          REPOSITORY_NAME: ${{ github.event.repository.name }}
+        shell: bash
+        run: |
+          if [[ "$REPOSITORY_NAME" == *.github.io ]]; then
+            echo "prefix=/" >> "$GITHUB_OUTPUT"
+          else
+            echo "prefix=/$REPOSITORY_NAME/" >> "$GITHUB_OUTPUT"
+          fi
+      - name: Build HTML
+        run: npm run build
+        env:
+          SITE_PATH_PREFIX: ${{ steps.pages-path.outputs.prefix }}
+      - name: Validate generated site
+        run: npm test
+        env:
+          SITE_PATH_PREFIX: ${{ steps.pages-path.outputs.prefix }}
+      - name: Upload Pages artifact
+        if: github.event_name != 'pull_request'
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    if: github.event_name != 'pull_request'
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

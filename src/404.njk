@@ -1,0 +1,7 @@
+---
+layout: base.njk
+title: Сторінку не знайдено
+permalink: /404.html
+---
+{% from "icons.njk" import icon %}
+<section class="container upcoming-page"><p class="eyebrow">ПОМИЛКА 404</p><h1>Ця сторінка<br>десь <span class="text-blue">загубилася.</span></h1><p class="hero-description">Поверніться до головної та оберіть розділ у путівнику.</p><a class="button button-primary" href="{{ '/' | siteUrl }}">На головну {{ icon('arrow') }}</a></section>

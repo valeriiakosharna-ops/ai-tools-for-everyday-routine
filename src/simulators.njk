@@ -1,0 +1,8 @@
+---
+layout: base.njk
+title: Тренажери з основ ШІ
+pageId: simulators
+permalink: /simulators/index.html
+---
+{% from "icons.njk" import icon %}
+<section class="container upcoming-page"><nav class="breadcrumbs" aria-label="Хлібні крихти"><a href="{{ '/' | siteUrl }}">Головна</a><span>/</span><span aria-current="page">Тренажери</span></nav><span class="badge">Розділ готується</span><p class="eyebrow">03 / ЗРОЗУМІТИ</p><h1>Зазирніть під капот.<br><span class="text-blue">Без складних формул.</span></h1><p class="hero-description">Майбутні інтерактивні тренажери допоможуть побачити, як ШІ працює з текстом, контекстом і знаннями.</p><div class="upcoming-grid"><article>{{ icon('code', '', 30) }}<h2>Токени</h2><p>Як текст ділиться на частинки, з якими працює мовна модель.</p></article><article>{{ icon('layers', '', 30) }}<h2>Контекстна пам’ять</h2><p>Що модель бачить у межах запиту та як обмеження контексту впливає на відповідь.</p></article><article>{{ icon('connect', '', 30) }}<h2>Векторна база даних</h2><p>Як шукати схожі за змістом матеріали й додавати потрібні знання до запиту.</p></article></div><a class="button button-primary" href="{{ '/taxonomy/' | siteUrl }}">Почніть із знайомства з інструментами {{ icon('arrow') }}</a></section>

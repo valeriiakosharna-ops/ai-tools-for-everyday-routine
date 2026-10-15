@@ -1,0 +1,39 @@
+{% from "icons.njk" import icon %}
+<!doctype html>
+<html lang="uk">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#302A40">
+  <meta name="description" content="{{ description or site.description }}">
+  <title>{{ title }} · {{ site.name }}</title>
+  <link rel="icon" href="{{ '/assets/favicon.svg' | siteUrl }}" type="image/svg+xml">
+  <link rel="stylesheet" href="{{ '/assets/styles.css' | siteUrl }}">
+  <script src="{{ '/assets/site.js' | siteUrl }}" defer></script>
+</head>
+<body>
+  <a class="skip-link" href="#main">Перейти до змісту</a>
+  <div class="topline"><div class="container"><span class="status-dot"></span> Більше можливостей у кожному дні <span class="topline-note">Відкритий навчальний простір</span></div></div>
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="{{ '/' | siteUrl }}" aria-label="{{ site.name }} — головна">
+        <img src="{{ '/assets/logo.svg' | siteUrl }}" alt="nix" width="100" height="50">
+        <span class="brand-divider"></span><span class="brand-title">ШІ для<br>щоденних справ<span class="brand-dot">.</span></span>
+      </a>
+      <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Відкрити навігацію" hidden>{{ icon('menu') }}</button>
+      <nav id="main-nav" class="main-nav" aria-label="Головна навігація">
+        <a href="{{ '/' | siteUrl }}"{% if pageId == 'home' %} aria-current="page"{% endif %}>Головна</a>
+        <a href="{{ '/taxonomy/' | siteUrl }}"{% if pageId == 'taxonomy' %} aria-current="page"{% endif %}>Інструменти</a>
+        <a href="{{ '/practice/' | siteUrl }}"{% if pageId == 'practice' %} aria-current="page"{% endif %}>Практика <span class="nav-soon">скоро</span></a>
+        <a href="{{ '/simulators/' | siteUrl }}"{% if pageId == 'simulators' %} aria-current="page"{% endif %}>Тренажери <span class="nav-soon">скоро</span></a>
+      </nav>
+    </div>
+  </header>
+  <main id="main">{{ content | safe }}</main>
+  <footer class="site-footer"><div class="container footer-inner">
+    <a href="{{ '/' | siteUrl }}" class="footer-brand"><img src="{{ '/assets/logo.svg' | siteUrl }}" width="72" height="36" alt="nix"><span>Технології, які допомагають.</span></a>
+    <span>Розбирайтеся. Пробуйте. Перевіряйте результат.</span>
+    <a href="#main" class="back-top">Нагору ↑</a>
+  </div></footer>
+</body>
+</html>

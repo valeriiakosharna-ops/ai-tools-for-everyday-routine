@@ -1,0 +1,8 @@
+---
+layout: base.njk
+title: Практика
+pageId: practice
+permalink: /practice/index.html
+---
+{% from "icons.njk" import icon %}
+<section class="container upcoming-page"><nav class="breadcrumbs" aria-label="Хлібні крихти"><a href="{{ '/' | siteUrl }}">Головна</a><span>/</span><span aria-current="page">Практика</span></nav><span class="badge">Розділ готується</span><p class="eyebrow">02 / СПРОБУВАТИ</p><h1>Навички починаються<br>з <span class="text-blue">маленьких задач.</span></h1><p class="hero-description">Тут з’являться покрокові завдання з використання ШІ у повсякденних справах. Від першого запиту до перевіреного результату.</p><div class="upcoming-grid"><article>{{ icon('chat', '', 30) }}<h2>Тексти й комунікація</h2><p>Листи, запрошення та зрозумілі пояснення для різних аудиторій.</p></article><article>{{ icon('book', '', 30) }}<h2>Дослідження</h2><p>Порівняння матеріалів, пошук головного та перевірка джерел.</p></article><article>{{ icon('target', '', 30) }}<h2>Організація справ</h2><p>Плани, списки та підготовка до подій за допомогою асистента.</p></article></div><a class="button button-primary" href="{{ '/taxonomy/' | siteUrl }}">Поки що — оберіть інструмент {{ icon('arrow') }}</a></section>
