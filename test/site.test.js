@@ -191,3 +191,33 @@ test("pages address the reader directly and advertise practice as available", ()
     /Розділ готується/,
   );
 });
+
+test("how-AI-works page includes four trainers, static explanations and sources, and has no upcoming labels", async () => {
+  const html = htmlByFile.get(path.join(output, "simulators/index.html"));
+  assert.match(html, /Як працює ШІ — пояснення та тренажери/);
+  for (const id of [
+    "tokens",
+    "context",
+    "vectors",
+    "rag",
+    "whole-story",
+    "learn-sources",
+  ])
+    assert.ok(html.includes(`id="${id}"`));
+  for (const trainer of ["token", "context", "vector", "rag"])
+    assert.ok(html.includes(`data-${trainer}-controls`));
+  assert.match(html, /cl100k_base/);
+  assert.match(html, /вручну заданими координатами/);
+  assert.match(html, /наперед заданими шаблонами/);
+  assert.match(html, /вигадані уривки/);
+  assert.doesNotMatch(html, />скоро<|Розділ готується|Незабаром/);
+  for (const file of [
+    "tokenizer.js",
+    "tokenizer-LICENSE.txt",
+    "ai-lab.js",
+    "ai-lab-models.js",
+  ])
+    assert.ok((await stat(path.join(output, "assets", file))).isFile());
+  for (const page of htmlByFile.values())
+    assert.match(page, />Як працює ШІ<\/a>/);
+});
