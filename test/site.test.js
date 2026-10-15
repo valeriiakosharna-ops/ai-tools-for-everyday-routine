@@ -126,3 +126,58 @@ test("taxonomy includes all six detailed tools, four approaches and official sou
     assert.ok(html.includes(`id="${section}"`));
   }
 });
+
+test("practice renders five actionable exercises, copyable prompts, sample sources and an optional agent demonstration", async () => {
+  const data = JSON.parse(await readFile("src/_data/practice.json", "utf8"));
+  const html = htmlByFile.get(path.join(output, "practice/index.html"));
+  assert.equal(data.exercises.length, 5);
+  assert.equal((html.match(/data-complete-exercise=/g) || []).length, 5);
+  const promptIds = new Set();
+  for (const exercise of data.exercises) {
+    assert.ok(html.includes(`id="${exercise.id}"`));
+    assert.ok(html.includes(exercise.title));
+    assert.ok(html.includes(exercise.result));
+    assert.ok(exercise.steps.length >= 4);
+    assert.ok(exercise.checks.length >= 3);
+    assert.ok(exercise.reflection.length >= 2);
+    for (const prompt of exercise.prompts) {
+      assert.ok(!promptIds.has(prompt.id), "prompt IDs are unique");
+      promptIds.add(prompt.id);
+      assert.ok(html.includes(`id="${prompt.id}"`));
+      assert.ok(html.includes(`data-copy-target="${prompt.id}"`));
+      assert.ok(html.includes(prompt.text));
+    }
+  }
+  for (const file of ["event-brief.txt", "event-update.txt"]) {
+    const content = await readFile(
+      path.join(output, "assets/materials", file),
+      "utf8",
+    );
+    assert.match(content, /вигаданий документ/);
+    assert.ok(html.includes(`${prefix}assets/materials/${file}`));
+  }
+  assert.ok(html.includes('id="agent-demo"'));
+  assert.ok(html.includes('id="agent-prompt"'));
+  assert.ok(html.includes('id="practice-summary"'));
+});
+
+test("pages address the reader directly and advertise practice as available", () => {
+  for (const [file, html] of htmlByFile) {
+    assert.doesNotMatch(
+      html,
+      /студент|користувач|дослідник|волонтер(?!ськ)/iu,
+      `${file}: avoid third-person reader roles`,
+    );
+    const practiceNavigation = html.match(
+      /<a href="[^"]*\/practice\/"[^>]*>(.*?)<\/a>/s,
+    );
+    assert.ok(practiceNavigation, `${file} links to practice`);
+    assert.doesNotMatch(practiceNavigation[1], /скоро|Незабаром/);
+  }
+  const home = htmlByFile.get(path.join(output, "index.html"));
+  assert.match(home, /Перейдіть до практики/);
+  assert.doesNotMatch(
+    htmlByFile.get(path.join(output, "practice/index.html")),
+    /Розділ готується/,
+  );
+});

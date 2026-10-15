@@ -1,8 +1,85 @@
 ---
 layout: base.njk
-title: Практика
+title: Спробуйте ШІ на практиці
+description: Виконайте п’ять коротких вправ із ChatGPT, Gemini, NotebookLM і Claude. Скопіюйте готові запити, перевірте відповіді та порівняйте результати.
 pageId: practice
 permalink: /practice/index.html
 ---
 {% from "icons.njk" import icon %}
-<section class="container upcoming-page"><nav class="breadcrumbs" aria-label="Хлібні крихти"><a href="{{ '/' | siteUrl }}">Головна</a><span>/</span><span aria-current="page">Практика</span></nav><span class="badge">Розділ готується</span><p class="eyebrow">02 / СПРОБУВАТИ</p><h1>Навички починаються<br>з <span class="text-blue">маленьких задач.</span></h1><p class="hero-description">Тут з’являться покрокові завдання з використання ШІ у повсякденних справах. Від першого запиту до перевіреного результату.</p><div class="upcoming-grid"><article>{{ icon('chat', '', 30) }}<h2>Тексти й комунікація</h2><p>Листи, запрошення та зрозумілі пояснення для різних аудиторій.</p></article><article>{{ icon('book', '', 30) }}<h2>Дослідження</h2><p>Порівняння матеріалів, пошук головного та перевірка джерел.</p></article><article>{{ icon('target', '', 30) }}<h2>Організація справ</h2><p>Плани, списки та підготовка до подій за допомогою асистента.</p></article></div><a class="button button-primary" href="{{ '/taxonomy/' | siteUrl }}">Поки що — оберіть інструмент {{ icon('arrow') }}</a></section>
+<section class="taxonomy-hero practice-hero">
+  <div class="container">
+    <nav class="breadcrumbs" aria-label="Хлібні крихти"><a href="{{ '/' | siteUrl }}">Головна</a><span>/</span><span aria-current="page">Практика</span></nav>
+    <div class="practice-hero-grid">
+      <div>
+        <p class="eyebrow"><span class="small-line"></span> РОЗДІЛ 02 / СПРОБУЙТЕ САМІ</p>
+        <h1>Доручіть задачу.<br><span class="text-blue">Перевірте результат.</span></h1>
+        <p class="hero-description">Спробуйте різні способи працювати з ШІ: складіть план, уточніть запит, дослідіть джерела та порівняйте відповіді. Почніть із будь-якої вправи — без програмування й довгих налаштувань.</p>
+        <div class="hero-meta"><span>{{ icon('clock', '', 16) }} Виділіть 29–36 хв на 5 вправ</span><span>{{ icon('target', '', 16) }} Або спробуйте одну за 5–10 хв</span></div>
+        <a class="button button-primary" href="#plan">Почніть із першої вправи {{ icon('arrow') }}</a>
+      </div>
+      <div class="practice-route" aria-label="Ваш маршрут практикумом">
+        <p class="eyebrow">ОБЕРІТЬ СВІЙ КРОК</p>
+        {% for exercise in practice.exercises %}<a href="#{{ exercise.id }}"><span>{{ exercise.number }}</span><strong>{{ exercise.skill }}</strong><small>{{ exercise.tool }}</small>{{ icon('arrow', '', 16) }}</a>{% endfor %}
+      </div>
+    </div>
+  </div>
+</section>
+<div class="container reading-layout practice-layout">
+  <aside class="reading-sidebar">
+    <nav class="contents-nav" aria-label="Зміст практикуму">
+      <p class="eyebrow">ОБЕРІТЬ ВПРАВУ</p>
+      {% for exercise in practice.exercises %}<a href="#{{ exercise.id }}"><span>{{ exercise.number }}</span>{{ exercise.skill }}</a>{% endfor %}
+      <a href="#agent-demo"><span>+</span> Дослідіть роботу агента</a>
+      <a href="#practice-summary"><span>✓</span> Підбийте підсумки</a>
+    </nav>
+    <div class="practice-progress" hidden>
+      <label for="practice-progress-bar">Відстежуйте свій прогрес</label>
+      <progress id="practice-progress-bar" value="0" max="{{ practice.exercises | length }}"></progress>
+      <p id="practice-progress-status" role="status" aria-live="polite">Ви завершили 0 із 5 вправ.</p>
+      <p class="progress-note" id="practice-storage-note">Ваші позначки зберігаються лише в цьому браузері. Ви самі оцінюєте виконання.</p>
+      <button type="button" class="progress-reset">Скиньте свої позначки</button>
+    </div>
+  </aside>
+  <div class="reading-content">
+    <div class="callout practice-start"><span class="callout-symbol">і</span><div><strong>Підготуйтеся до практики</strong><p>Відкрийте потрібний сервіс у новій вкладці та за потреби увійдіть у свій обліковий запис. Час вправ указано без реєстрації. Використайте навчальні ситуації або власні дані, які можете передавати сервісу. Збережіть відповіді у своїх нотатках: тут ви знайдете інструкції та відстежите виконання.</p></div></div>
+    {% for exercise in practice.exercises %}
+    <section id="{{ exercise.id }}" class="reading-section exercise" aria-labelledby="{{ exercise.id }}-title" data-exercise="{{ exercise.id }}">
+      <div class="exercise-meta"><span class="section-kicker">ВПРАВА {{ exercise.number }} / {{ exercise.tool }}</span><span>{{ icon('clock', '', 15) }} {{ exercise.minutes }}</span></div>
+      <h2 id="{{ exercise.id }}-title">{{ exercise.title }}</h2>
+      <p class="section-intro">{{ exercise.intro }}</p>
+      <div class="exercise-tools">{% for tool in exercise.tools %}<a class="button button-outline" href="{{ tool.url }}" target="_blank" rel="noopener noreferrer">Відкрийте {{ tool.name }} {{ icon('external', '', 14) }}<span class="sr-only"> (у новій вкладці)</span></a>{% endfor %}</div>
+      <h3 class="exercise-subtitle">Виконайте крок за кроком</h3>
+      <ol class="exercise-steps">{% for step in exercise.steps %}<li>{{ step }}</li>{% endfor %}</ol>
+      {% if exercise.materials %}
+      <div class="exercise-materials"><h3>{{ icon('book', '', 19) }} Візьміть готові джерела</h3><p>Використайте два вигадані документи для цієї вправи. Порівняйте початкові умови з уточненнями та відстежте, на який документ спирається відповідь.</p><div>{% for material in exercise.materials %}<a href="{{ material.path | siteUrl }}" download>{{ material.label }} ↓</a>{% endfor %}</div></div>
+      {% endif %}
+      {% for prompt in exercise.prompts %}
+      <div class="prompt-card">
+        <div class="prompt-header"><h3 id="{{ prompt.id }}-label">{{ prompt.label }}</h3><button type="button" data-copy-target="{{ prompt.id }}" aria-label="Скопіюйте запит: {{ prompt.label }}" hidden>Скопіюйте {{ icon('layers', '', 15) }}</button></div>
+        <pre id="{{ prompt.id }}" tabindex="0" aria-labelledby="{{ prompt.id }}-label"><code>{{ prompt.text }}</code></pre>
+        <p class="copy-status" role="status" aria-live="polite"></p>
+      </div>
+      {% endfor %}
+      {% if exercise.id == 'compare' %}
+      <div class="comparison-guide"><h3 class="exercise-subtitle" id="practice-comparison-title">Порівняйте за однаковими критеріями</h3><p>Оцініть кожну відповідь: 1 — вам бракує ясності або точності, 2 — отримали частковий результат, 3 — отримали вдале пояснення. Запишіть оцінки та приклади у свої нотатки.</p><div class="table-scroll" role="region" tabindex="0" aria-labelledby="practice-comparison-title"><table><caption class="sr-only">Використайте ці критерії для порівняння відповідей у своїх нотатках</caption><thead><tr><th scope="col">Перевірте</th><th scope="col">ChatGPT</th><th scope="col">Gemini</th><th scope="col">Claude</th></tr></thead><tbody><tr><th scope="row">Чи зрозуміли ви пояснення?</th><td>Оцініть 1–3</td><td>Оцініть 1–3</td><td>Оцініть 1–3</td></tr><tr><th scope="row">Чи допомогла вам аналогія?</th><td>Оцініть 1–3</td><td>Оцініть 1–3</td><td>Оцініть 1–3</td></tr><tr><th scope="row">Чи отримали ви точне пояснення обмеження?</th><td>Оцініть 1–3</td><td>Оцініть 1–3</td><td>Оцініть 1–3</td></tr></tbody></table></div></div>
+      {% endif %}
+      <div class="exercise-result"><span>{{ icon('check', '', 22) }}</span><div><h3>Перевірте, що ви отримали</h3><p>{{ exercise.result }}</p></div></div>
+      <div class="exercise-review"><h3 class="exercise-subtitle">Перевірте себе</h3><ul>{% for check in exercise.checks %}<li>{{ check }}</li>{% endfor %}</ul><details><summary>Поміркуйте після вправи {{ icon('chevron', '', 17) }}</summary><ul>{% for question in exercise.reflection %}<li>{{ question }}</li>{% endfor %}</ul></details></div>
+      <label class="exercise-complete" hidden><input type="checkbox" data-complete-exercise="{{ exercise.id }}"><span>Позначте вправу «{{ exercise.title }}» як виконану</span></label>
+      <div class="exercise-next">{% if not loop.last %}<a href="#{{ practice.exercises[loop.index].id }}">Перейдіть до наступної вправи {{ icon('arrow', '', 17) }}</a>{% else %}<a href="#practice-summary">Підбийте свої підсумки {{ icon('arrow', '', 17) }}</a>{% endif %}</div>
+    </section>
+    {% endfor %}
+    <section id="agent-demo" class="reading-section agent-demo" aria-labelledby="agent-demo-title">
+      <p class="section-kicker">ДОДАТКОВО / CLAUDE CODE АБО CODEX</p>
+      <h2 id="agent-demo-title">Побачте, як агент виконує дію</h2>
+      <p class="section-intro">Пройдіть цей крок за бажанням. Якщо ви ще не працюєте з кодом, поспостерігайте за демонстрацією з готовим проєктом. Якщо вже маєте налаштований Claude Code або Codex, спробуйте самі на навчальному проєкті.</p>
+      <ol class="exercise-steps"><li>Відкрийте невеликий навчальний проєкт або долучіться до демонстрації в уже підготовленому середовищі.</li><li>Знайдіть поточний заголовок сторінки й зафіксуйте, як вона виглядає до зміни.</li><li>Передайте агенту запит нижче. Стежте за тим, які файли він читає, що змінює та які команди виконує.</li><li>Перегляньте різницю у файлах, відкрийте сторінку після зміни та перевірте результат.</li></ol>
+      <div class="prompt-card"><div class="prompt-header"><h3 id="agent-prompt-label">Доручіть одну невелику зміну</h3><button type="button" data-copy-target="agent-prompt" aria-label="Скопіюйте запит для агента" hidden>Скопіюйте {{ icon('layers', '', 15) }}</button></div><pre id="agent-prompt" tabindex="0" aria-labelledby="agent-prompt-label"><code>У цьому навчальному проєкті знайди головний заголовок сторінки й заміни його на «Мій перший крок із ШІ». Не змінюй інші тексти та стилі. Покажи різницю у файлах, запусти доступну перевірку збірки й поясни, як мені перевірити результат у браузері. Якщо потрібного доступу чи команди немає, зупинись і поясни, чого бракує.</code></pre><p class="copy-status" role="status" aria-live="polite"></p></div>
+      <div class="exercise-result"><span>{{ icon('code', '', 23) }}</span><div><h3>Відрізніть пораду від виконання</h3><p>Перевірте, що отримали реальну зміну файла та результат перевірки. Не прирівнюйте текстове пояснення «як це зробити» до виконаної дії. Якщо спостерігали за демонстрацією, назвіть файл, зміну й спосіб перевірки, які ви побачили.</p></div></div>
+      <p class="small-note">Не встановлюйте агента лише заради основного практикуму. Якщо не маєте підготовленого середовища або демонстрації, пропустіть цей додатковий крок. Дізнайтеся про потрібні можливості в <a href="{{ '/taxonomy/#claude-code' | siteUrl }}">огляді Claude Code</a> та <a href="{{ '/taxonomy/#codex' | siteUrl }}">огляді Codex</a>.</p>
+    </section>
+    <section id="practice-summary" class="reading-section" aria-labelledby="practice-summary-title"><p class="section-kicker">ПІДБИЙТЕ ПІДСУМКИ</p><h2 id="practice-summary-title">Заберіть навички у свій день</h2><p class="section-intro">Поверніться до своїх відповідей і запишіть три короткі висновки:</p><ol class="exercise-steps"><li>Для якої вашої задачі ШІ вже може бути корисним?</li><li>Який інструмент ви оберете та який контекст йому додасте?</li><li>Як ви перевірите, що отримали потрібний результат?</li></ol><div class="takeaway"><span>{{ icon('spark', '', 25) }}</span><div><h3>Оберіть одну справжню задачу й спробуйте ще раз.</h3><p>Скористайтеся тим, що вже відпрацювали: дайте контекст, уточніть умови, перевірте джерела й оцініть результат.</p></div></div></section>
+    <div class="next-section"><a href="{{ '/taxonomy/' | siteUrl }}">← Поверніться до інструментів</a><a href="{{ '/simulators/' | siteUrl }}">Зазирніть у майбутні тренажери {{ icon('arrow', '', 18) }}</a></div>
+    <noscript><p class="small-note">Читайте інструкції та копіюйте запити виділенням тексту. Щоб користуватися кнопками копіювання й позначками виконання, увімкніть JavaScript.</p></noscript>
+  </div>
+</div>
