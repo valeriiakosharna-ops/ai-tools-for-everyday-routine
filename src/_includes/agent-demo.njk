@@ -1,0 +1,33 @@
+<div class="agent-simulator" data-agent-simulator data-demo-title="Мій перший крок із ШІ">
+  <div class="agent-simulator-heading"><span class="badge badge-live">Навчальна симуляція</span><p>Пройдіть типовий шлях роботи агента. Ви змінюєте лише приклад у цій сторінці, без підключення до Claude Code чи Codex.</p></div>
+  <ol class="agent-demo-path" aria-label="Пройдіть чотири кроки демо"><li>Прочитайте файл</li><li>Перегляньте різницю</li><li>Застосуйте зміну</li><li>Перевірте результат</li></ol>
+  <div class="agent-demo-panel" data-demo-step="0">
+    <h3 tabindex="-1">1. Прочитайте початковий файл</h3><p>Знайдіть у навчальному <code>index.html</code> заголовок «Мій навчальний сайт». Зверніть увагу на текст і кнопку: їх ви маєте зберегти.</p>
+    <pre class="agent-source" id="agent-demo-before" tabindex="0" aria-label="Прочитайте початковий index.html"><code>&lt;main&gt;
+  &lt;h1&gt;Мій навчальний сайт&lt;/h1&gt;
+  &lt;p&gt;Вивчайте інструменти ШІ крок за кроком.&lt;/p&gt;
+  &lt;button disabled&gt;Почніть навчання&lt;/button&gt;
+&lt;/main&gt;</code></pre>
+  </div>
+  <div class="agent-demo-panel" data-demo-step="1">
+    <h3 tabindex="-1">2. Перегляньте запропоновану різницю</h3><p>Зіставте рядок, який потрібно видалити, з рядком, який потрібно додати. Перевірте, що ви змінюєте лише заголовок.</p>
+    <div class="agent-diff" role="group" aria-label="Порівняйте зміну в index.html"><p><span>− Видаліть</span><code>&lt;h1&gt;Мій навчальний сайт&lt;/h1&gt;</code></p><p><span>+ Додайте</span><code>&lt;h1&gt;Мій перший крок із ШІ&lt;/h1&gt;</code></p></div>
+    <p class="small-note">На цьому кроці ви лише переглядаєте пропозицію. Застосуйте її наступною кнопкою, щоб змінити навчальний файл.</p>
+  </div>
+  <div class="agent-demo-panel" data-demo-step="2">
+    <h3 tabindex="-1">3. Застосуйте зміну до прикладу</h3><p>Тепер ви бачите новий заголовок у навчальному файлі й попередньому перегляді. Переконайтеся, що текст і кнопка залишилися на місці.</p>
+    <pre class="agent-source" id="agent-demo-after" tabindex="0" aria-label="Прочитайте змінений index.html"><code>&lt;main&gt;
+  &lt;h1&gt;Мій перший крок із ШІ&lt;/h1&gt;
+  &lt;p&gt;Вивчайте інструменти ШІ крок за кроком.&lt;/p&gt;
+  &lt;button disabled&gt;Почніть навчання&lt;/button&gt;
+&lt;/main&gt;</code></pre>
+  </div>
+  <div class="agent-demo-panel" data-demo-step="3">
+    <h3 tabindex="-1">4. Перевірте навчальний HTML</h3><p>Запустіть перевірку прикладу у своєму браузері. Ви перевірите наведені нижче умови; збірку проєкту та реальні команди агента тут не запускаєте.</p>
+    <ul class="agent-checks" data-demo-checks><li>Знайдіть рівно один головний заголовок.</li><li>Звірте новий заголовок із вашим запитом.</li><li>Переконайтеся, що текст і кнопка не змінилися.</li><li>Перевірте, що ви змінили лише вміст заголовка.</li></ul>
+    <noscript><p class="small-note">Без JavaScript зіставте початковий і змінений файли вище та перевірте ці чотири умови вручну.</p></noscript>
+  </div>
+  <div class="agent-preview" hidden><p class="eyebrow" data-demo-preview-label>ПЕРЕГЛЯНЬТЕ ПРИКЛАД ДО ЗМІНИ</p><iframe title="Перегляньте навчальну сторінку до або після зміни заголовка" sandbox="" tabindex="-1"></iframe></div>
+  <p class="agent-demo-status" role="status" aria-live="polite" data-demo-status></p>
+  <div class="agent-demo-controls" hidden><button class="button button-outline" type="button" data-demo-back>← Поверніться</button><button class="button button-primary" type="button" data-demo-next>Перегляньте різницю →</button><button class="agent-demo-reset" type="button" data-demo-reset>Почніть демо заново</button></div>
+</div>

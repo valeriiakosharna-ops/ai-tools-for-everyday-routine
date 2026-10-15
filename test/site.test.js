@@ -159,6 +159,16 @@ test("practice renders five actionable exercises, copyable prompts, sample sourc
   assert.ok(html.includes('id="agent-demo"'));
   assert.ok(html.includes('id="agent-prompt"'));
   assert.ok(html.includes('id="practice-summary"'));
+  assert.equal((html.match(/data-demo-step=/g) || []).length, 4);
+  assert.ok(html.includes('id="agent-demo-before"'));
+  assert.ok(html.includes('id="agent-demo-after"'));
+  assert.ok(html.includes("data-demo-checks"));
+  assert.ok(html.includes('sandbox=""'));
+  assert.match(html, /Навчальна симуляція/);
+  assert.doesNotMatch(
+    html,
+    /долучіться до демонстрації|пропустіть цей додатковий крок/,
+  );
 });
 
 test("pages address the reader directly and advertise practice as available", () => {
