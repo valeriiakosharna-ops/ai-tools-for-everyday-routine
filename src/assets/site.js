@@ -6,7 +6,7 @@ if (nav && menu) {
   menu.hidden = false;
   const closeMenu = () => {
     menu.setAttribute("aria-expanded", "false");
-    menu.setAttribute("aria-label", "Відкрити навігацію");
+    menu.setAttribute("aria-label", "Відкрийте навігацію");
     nav.classList.remove("is-open");
   };
   menu.addEventListener("click", () => {
@@ -14,7 +14,7 @@ if (nav && menu) {
     menu.setAttribute("aria-expanded", String(open));
     menu.setAttribute(
       "aria-label",
-      open ? "Закрити навігацію" : "Відкрити навігацію",
+      open ? "Закрийте навігацію" : "Відкрийте навігацію",
     );
     nav.classList.toggle("is-open", open);
   });
@@ -65,7 +65,7 @@ function filterTools() {
   if (empty) empty.hidden = visible !== 0;
   const status = document.querySelector("#filter-status");
   if (status)
-    status.textContent = `Показано інструментів: ${visible} із ${cards.length}`;
+    status.textContent = `Ви бачите інструментів: ${visible} із ${cards.length}`;
 }
 function resetTools() {
   activeFilter = "all";
