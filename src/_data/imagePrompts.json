@@ -1,0 +1,192 @@
+{
+  "references": [
+    {
+      "asset": "karazin build",
+      "number": "01",
+      "title": "Розгляньте будівлю університету",
+      "description": "Використайте це фото як перше вкладення — image_1.",
+      "alt": "Головна будівля Харківського національного університету імені В. Н. Каразіна",
+      "image": {
+        "src": "/assets/Karazin-build.png",
+        "width": 2048,
+        "height": 1535
+      }
+    },
+    {
+      "asset": "karazin-logo",
+      "number": "02",
+      "title": "Розгляньте університетську емблему",
+      "description": "Використайте цей логотип як друге вкладення — image_2.",
+      "alt": "Оригінальна емблема Харківського національного університету імені В. Н. Каразіна",
+      "image": {
+        "src": "/assets/karazin-logo.png",
+        "width": 347,
+        "height": 362
+      }
+    }
+  ],
+  "results": [
+    {
+      "asset": "karazin-1",
+      "number": "01",
+      "format": "json",
+      "alt": "Згенероване зображення: будівля університету з переходом від реалістичної архітектури до світного цифрового креслення",
+      "prompt": {
+        "concept": "The Blueprint of Tomorrow",
+        "marketing_message": "Building Tomorrow",
+        "references": {
+          "architecture": "image_1",
+          "university_emblem": "image_2"
+        },
+        "subject": {
+          "object": "university_main_building",
+          "preserve_geometry": true,
+          "visual_transformation": {
+            "left_side": "photorealistic_architecture",
+            "right_side": "luminous_digital_blueprint",
+            "transition": "seamless_gradient"
+          }
+        },
+        "visual_effects": {
+          "wireframe": true,
+          "technical_grid": "subtle",
+          "blue_glowing_lines": true,
+          "golden_accents": true,
+          "particles": "minimal"
+        },
+        "branding": {
+          "emblem": "original_reference_image_2",
+          "placement": "upper_right",
+          "background": "royal_blue_panel"
+        },
+        "art_direction": {
+          "style": "futuristic_architectural_advertising",
+          "background": "light_minimalist",
+          "lighting": "cinematic_soft",
+          "palette": ["royal_blue", "gold", "white"]
+        },
+        "restrictions": {
+          "no_new_text": true,
+          "no_architecture_distortion": true,
+          "no_logo_redesign": true
+        },
+        "aspect_ratio": "16:9"
+      },
+      "image": {
+        "src": "/assets/Karazin-1.png",
+        "width": 1672,
+        "height": 941
+      }
+    },
+    {
+      "asset": "karazin-2",
+      "number": "02",
+      "format": "text",
+      "alt": "Згенероване зображення: будівля університету всередині прозорої половини синьо-скляної капсули з емблемою",
+      "prompt": "Create a premium, hyper-realistic 3D advertising visual for V. N. Karazin Kharkiv National University using the two attached reference images.\n\nThe central object is a giant pharmaceutical-style capsule floating diagonally in a clean, minimalist studio environment.\n\nThe capsule consists of two halves:\n\n- The first half is made of crystal-clear transparent glass, revealing a highly detailed miniature 3D replica of the university's iconic main building, based precisely on the first reference photograph.\n- The second half is made of glossy deep royal blue material inspired by the background color of the university's official emblem. Place the original golden university emblem from the second reference image on this blue surface, accurately preserving its details and proportions.\n\nThe building should appear perfectly contained inside the transparent half, like a precious scientific discovery preserved within a capsule.\n\nAdd realistic glass refractions, subtle internal lighting, elegant reflections, soft shadows and premium product photography aesthetics.\n\nComposition: large capsule positioned diagonally, slightly elevated above a smooth white surface, with generous negative space.\n\nVisual style: luxury commercial CGI, photorealistic 3D rendering, sophisticated educational branding, modern science-inspired advertising, ultra-detailed textures, cinematic studio lighting.\n\nColor palette: royal blue, gold, transparent glass, warm ivory and white.\n\nPreserve the original building architecture and university emblem. Do not redesign the logo, invent architectural features or add unrelated objects.\n\nNo additional text, no watermark, no extra logos.\n\nAspect ratio: 4:5, high resolution, advertising campaign quality.",
+      "image": {
+        "src": "/assets/Karazin-2.png",
+        "width": 1122,
+        "height": 1402
+      }
+    },
+    {
+      "asset": "karazin-3",
+      "number": "03",
+      "format": "json",
+      "alt": "Згенероване зображення: поєднання впізнаваної будівлі університету з символічною формою серця та технологічними акцентами",
+      "prompt": {
+        "concept": "Karazin as the Heart of Innovation",
+        "goal": "Create a modern, minimal and technology-inspired visual for university branding",
+        "reference_images": {
+          "image_1": {
+            "role": "architecture_reference",
+            "subject": "Main building of V. N. Karazin Kharkiv National University",
+            "preserve_identity": true
+          },
+          "image_2": {
+            "role": "branding_reference",
+            "subject": "Official university emblem",
+            "preserve_original_design": true
+          }
+        },
+        "main_object": {
+          "type": "architectural_heart_fusion",
+          "description": "A stylized fusion of the university building and a real human heart",
+          "building_features": [
+            "recognizable silhouette",
+            "central tower",
+            "main facade structure"
+          ],
+          "heart_features": [
+            "organic heart shape",
+            "subtle anatomical curves",
+            "refined vein or artery-inspired forms"
+          ],
+          "integration_style": "subtle_symbolic_modern"
+        },
+        "visual_style": {
+          "approach": "modern_CGI_or_stylized_3D",
+          "mood": [
+            "clean",
+            "smart",
+            "contemporary",
+            "innovative",
+            "tech-inspired"
+          ],
+          "inspiration": [
+            "IT",
+            "AI",
+            "digital systems",
+            "neural networks",
+            "interface design"
+          ],
+          "extra_elements": [
+            "soft glowing lines",
+            "minimal data connections",
+            "subtle neural-network patterns",
+            "clean interface-like accents"
+          ]
+        },
+        "branding": {
+          "use_emblem_from": "image_2",
+          "placement_options": [
+            "small blue panel",
+            "digital badge",
+            "minimal floating label"
+          ],
+          "style": "simple_clean_tasteful"
+        },
+        "environment": {
+          "background": "white_or_light_gray_minimal",
+          "lighting": "soft_even_clean",
+          "composition": "centered_hero_object_with_negative_space"
+        },
+        "color_palette": [
+          "white",
+          "light_gray",
+          "deep_blue",
+          "soft_gold",
+          "restrained_crimson"
+        ],
+        "constraints": {
+          "no_luxury_aesthetic": true,
+          "no_gore": true,
+          "no_blood": true,
+          "no_horror": true,
+          "no_extra_text": true,
+          "no_extra_logos": true,
+          "no_unrelated_objects": true
+        },
+        "output": {
+          "aspect_ratio": "4:5"
+        }
+      },
+      "image": {
+        "src": "/assets/Karazin-3.png",
+        "width": 1122,
+        "height": 1402
+      }
+    }
+  ]
+}
