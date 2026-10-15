@@ -20,6 +20,10 @@
   <link rel="stylesheet" href="{{ '/assets/ai-lab.css' | siteUrl }}">
   <script src="{{ '/assets/ai-lab.js' | siteUrl }}" type="module"></script>
   {% endif %}
+  {% if pageId == 'image-prompts' %}
+  <link rel="stylesheet" href="{{ '/assets/image-prompts.css' | siteUrl }}">
+  <script src="{{ '/assets/practice.js' | siteUrl }}" defer></script>
+  {% endif %}
 </head>
 <body>
   <a class="skip-link" href="#main">Перейдіть до змісту</a>
@@ -36,6 +40,7 @@
         <a href="{{ '/taxonomy/' | siteUrl }}"{% if pageId == 'taxonomy' %} aria-current="page"{% endif %}>Інструменти</a>
         <a href="{{ '/practice/' | siteUrl }}"{% if pageId == 'practice' %} aria-current="page"{% endif %}>Практика</a>
         <a href="{{ '/simulators/' | siteUrl }}"{% if pageId == 'simulators' %} aria-current="page"{% endif %}>Як працює ШІ</a>
+        <a href="{{ '/image-prompts/' | siteUrl }}"{% if pageId == 'image-prompts' %} aria-current="page"{% endif %}>Промпти для зображень</a>
       </nav>
     </div>
   </header>

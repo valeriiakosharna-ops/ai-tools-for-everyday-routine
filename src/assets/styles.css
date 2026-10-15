@@ -581,6 +581,34 @@ input:focus-visible,
 .available .path-link {
   color: var(--blue-ink);
 }
+.gallery-callout {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 25px;
+  padding: clamp(25px, 4vw, 42px);
+  margin-bottom: 40px;
+  border: 1px solid #cce7f5;
+  border-radius: 12px;
+  background: #f0f9fd;
+}
+.gallery-callout > div {
+  flex: 1 1 420px;
+}
+.gallery-callout h2 {
+  font-size: clamp(1.5rem, 3vw, 2rem);
+  margin-block: 12px;
+}
+.gallery-callout p:not(.eyebrow) {
+  color: var(--text);
+  font-size: 0.85rem;
+  line-height: 1.9;
+  max-width: 660px;
+}
+.gallery-callout .button {
+  flex-shrink: 0;
+}
 .principle-strip {
   margin-bottom: 80px;
   display: flex;

@@ -26,6 +26,9 @@ export default function (eleventyConfig) {
   eleventyConfig.addFilter("jsonScript", (value) =>
     JSON.stringify(value).replace(/</g, "\\u003c"),
   );
+  eleventyConfig.addFilter("promptText", (value) =>
+    typeof value === "string" ? value : JSON.stringify(value, null, 2),
+  );
   eleventyConfig.addFilter(
     "siteUrl",
     (path = "") => pathPrefix + path.replace(/^\/+/, ""),

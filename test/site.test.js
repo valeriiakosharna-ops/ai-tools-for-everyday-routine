@@ -31,13 +31,14 @@ const htmlByFile = new Map(
   ),
 );
 
-test("build produces the five intended Ukrainian pages with navigation and branding", () => {
-  assert.equal(pages.length, 5);
+test("build produces the six intended Ukrainian pages with navigation and branding", () => {
+  assert.equal(pages.length, 6);
   for (const file of [
     "index.html",
     "taxonomy/index.html",
     "practice/index.html",
     "simulators/index.html",
+    "image-prompts/index.html",
     "404.html",
   ]) {
     const html = htmlByFile.get(path.join(output, file));
@@ -59,6 +60,72 @@ test("build produces the five intended Ukrainian pages with navigation and brand
     const ids = [...html.matchAll(/\bid="([^"]+)"/g)].map((match) => match[1]);
     assert.equal(new Set(ids).size, ids.length, `${file} has unique anchors`);
   }
+});
+
+test("image gallery pairs the original assets with complete prompts hidden separately by default", async () => {
+  const data = JSON.parse(
+    await readFile("src/_data/imagePrompts.json", "utf8"),
+  );
+  const html = htmlByFile.get(path.join(output, "image-prompts/index.html"));
+  assert.equal(data.references.length, 2);
+  assert.equal(data.results.length, 3);
+  const details = [...html.matchAll(/<details\b([^>]*)>/g)];
+  assert.equal(details.length, 3);
+  for (const [, attributes] of details)
+    assert.doesNotMatch(attributes, /\bopen(?:\s|=|$)/);
+  const decodeHtml = (text) =>
+    text.replace(
+      /&(amp|lt|gt|quot|#39);/g,
+      (_, entity) =>
+        ({ amp: "&", lt: "<", gt: ">", quot: '"', "#39": "'" })[entity],
+    );
+  const expected = [
+    ["karazin-1", "/assets/Karazin-1.png", "The Blueprint of Tomorrow"],
+    [
+      "karazin-2",
+      "/assets/Karazin-2.png",
+      "giant pharmaceutical-style capsule",
+    ],
+    [
+      "karazin-3",
+      "/assets/Karazin-3.png",
+      "Karazin as the Heart of Innovation",
+    ],
+  ];
+  for (const [index, result] of data.results.entries()) {
+    const [asset, image, concept] = expected[index];
+    assert.equal(result.asset, asset);
+    assert.equal(result.image.src, image);
+    const article = html.match(
+      new RegExp(`<article\\b[^>]*id="${asset}"[^>]*>([\\s\\S]*?)</article>`),
+    )?.[1];
+    assert.ok(article, `${asset} renders a result card`);
+    assert.ok(article.includes(`${prefix}${image.slice(1)}`));
+    assert.ok(article.includes(concept));
+    const renderedPrompt = article.match(
+      /<pre\b[^>]*><code>([\s\S]*?)<\/code><\/pre>/,
+    )?.[1];
+    const text =
+      typeof result.prompt === "string"
+        ? result.prompt
+        : JSON.stringify(result.prompt, null, 2);
+    assert.equal(
+      decodeHtml(renderedPrompt),
+      text,
+      `${asset} preserves the complete prompt`,
+    );
+    assert.ok(article.includes(`data-copy-target="${asset}-prompt"`));
+  }
+  for (const item of [...data.references, ...data.results]) {
+    const filename = item.image.src.slice(1);
+    assert.deepEqual(
+      await readFile(path.join(output, filename)),
+      await readFile(path.join("src", filename)),
+      `${filename} is copied without modification`,
+    );
+  }
+  for (const page of htmlByFile.values())
+    assert.ok(page.includes(`${prefix}image-prompts/`));
 });
 
 test("every local link, fragment, stylesheet, script and image resolves under the Pages prefix", async () => {

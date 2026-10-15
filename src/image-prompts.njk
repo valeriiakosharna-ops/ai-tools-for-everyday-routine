@@ -1,0 +1,34 @@
+---
+layout: base.njk
+title: Промпти для зображень — від вкладень до результату
+description: Розгляньте два референси університету Каразіна та три результати генерації. Відкрийте промпт до кожного зображення, коли будете готові порівняти задум і результат.
+pageId: image-prompts
+permalink: /image-prompts/index.html
+---
+{% from "icons.njk" import icon %}
+<section class="taxonomy-hero gallery-hero"><div class="container">
+  <nav class="breadcrumbs" aria-label="Хлібні крихти"><a href="{{ '/' | siteUrl }}">Головна</a><span>/</span><span aria-current="page">Промпти для зображень</span></nav>
+  <p class="eyebrow"><span class="small-line"></span> РОЗГЛЯНЬТЕ / ПОРІВНЯЙТЕ / ВІДКРИЙТЕ</p>
+  <h1>Побачте результат.<br><span class="text-blue">Відкрийте задум.</span></h1>
+  <p class="hero-description">Спочатку розгляньте два вкладення та три згенеровані зображення. Спробуйте уявити, як сформульовано запит. Потім відкрийте промпт під кожним результатом і порівняйте його зі своїми припущеннями.</p>
+  <div class="gallery-hero-links"><a class="button button-primary" href="#gallery-results">Перегляньте результати {{ icon('arrow', '', 18) }}</a><a href="#gallery-references">Почніть із вкладень ↓</a></div>
+</div></section>
+<div class="container gallery-content">
+  <section id="gallery-references" class="gallery-section" aria-labelledby="gallery-references-title">
+    <div class="section-heading"><div><p class="eyebrow">01 / РОЗГЛЯНЬТЕ ВКЛАДЕННЯ</p><h2 id="gallery-references-title">Почніть із двох оригіналів</h2></div><p>Зіставте будівлю й емблему<br>з кожним результатом нижче.</p></div>
+    <div class="gallery-references">{% for reference in imagePrompts.references %}<figure class="reference-card">
+      {% if reference.image %}<a href="{{ reference.image.src | siteUrl }}" target="_blank" rel="noopener noreferrer" class="reference-image" aria-label="Відкрийте вкладення {{ reference.number }} у повному розмірі (у новій вкладці)"><img src="{{ reference.image.src | siteUrl }}" alt="{{ reference.alt }}" width="{{ reference.image.width }}" height="{{ reference.image.height }}" decoding="async"></a>{% else %}<div class="gallery-missing">Додайте зображення {{ reference.asset }} до assets.</div>{% endif %}
+      <figcaption><span class="section-kicker">ВКЛАДЕННЯ {{ reference.number }}</span><h3>{{ reference.title }}</h3><p>{{ reference.description }}</p></figcaption>
+    </figure>{% endfor %}</div>
+  </section>
+  <section id="gallery-results" class="gallery-section" aria-labelledby="gallery-results-title">
+    <div class="section-heading"><div><p class="eyebrow">02 / СПОЧАТКУ ПЕРЕГЛЯНЬТЕ РЕЗУЛЬТАТИ</p><h2 id="gallery-results-title">Порівняйте три різні візуальні ідеї</h2></div><p>Відкривайте промпти окремо,<br>коли захочете побачити запит.</p></div>
+    <div class="generation-grid">{% for result in imagePrompts.results %}<article class="generation-card" id="{{ result.asset }}" aria-labelledby="{{ result.asset }}-title">
+      <div class="generation-card-heading"><h3 id="{{ result.asset }}-title">Результат {{ result.number }}</h3><span>{{ result.asset }}</span></div>
+      <figure>{% if result.image %}<a href="{{ result.image.src | siteUrl }}" target="_blank" rel="noopener noreferrer" class="generation-image" aria-label="Відкрийте результат {{ result.number }} у повному розмірі (у новій вкладці)"><img src="{{ result.image.src | siteUrl }}" alt="{{ result.alt }}" width="{{ result.image.width }}" height="{{ result.image.height }}" loading="lazy" decoding="async"></a><figcaption><a href="{{ result.image.src | siteUrl }}" target="_blank" rel="noopener noreferrer">Розгляньте в повному розмірі {{ icon('external', '', 13) }}<span class="sr-only"> (у новій вкладці)</span></a></figcaption>{% else %}<div class="gallery-missing">Додайте зображення {{ result.asset }} до assets.</div>{% endif %}</figure>
+      <details class="prompt-reveal" id="{{ result.asset }}-reveal"><summary><span>Відкрийте промпт <span class="sr-only">до результату {{ result.number }}</span></span>{{ icon('chevron', '', 18) }}</summary><div class="revealed-prompt"><p class="prompt-reference-note">Додайте обидва оригінали: будівлю як <code>image_1</code> та емблему як <code>image_2</code>. Нижче прочитайте наданий промпт мовою оригіналу.</p><div class="prompt-card"><div class="prompt-header"><span>{% if result.format == 'json' %}JSON{% else %}TEXT{% endif %}</span><button type="button" data-copy-target="{{ result.asset }}-prompt" aria-label="Скопіюйте промпт до результату {{ result.number }}" hidden>Скопіюйте {{ icon('layers', '', 15) }}</button></div><pre id="{{ result.asset }}-prompt" tabindex="0" lang="en" role="region" aria-label="Прочитайте промпт до результату {{ result.number }} англійською"><code>{{ result.prompt | promptText }}</code></pre><p class="copy-status" role="status" aria-live="polite"></p></div></div></details>
+    </article>{% endfor %}</div>
+  </section>
+  <div class="takeaway"><span>{{ icon('search', '', 25) }}</span><div><h3>Зіставте задум із тим, що ви бачите.</h3><p>Перевірте, як збережено архітектуру та емблему, які деталі додано і як інструкції вплинули на композицію. Не сприймайте вимогу в промпті як гарантію точного виконання.</p></div></div>
+  <div class="next-section"><a href="{{ '/practice/' | siteUrl }}">← Поверніться до практики</a><a href="{{ '/' | siteUrl }}">Оберіть інший розділ {{ icon('arrow', '', 18) }}</a></div>
+</div>
