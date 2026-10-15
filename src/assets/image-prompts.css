@@ -454,3 +454,16 @@
     overflow: visible;
   }
 }
+
+
+.gallery-instructions {
+  border-left: 3px solid var(--blue);
+  background: #f2f8fc;
+  padding: 20px 23px;
+  border-radius: 0 8px 8px 0;
+  margin: 22px 0;
+  color: var(--text);
+  font-size: 0.88rem;
+  line-height: 1.9;
+}
+.gallery-instructions p + p { margin-top: 16px; }
