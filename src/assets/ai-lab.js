@@ -105,6 +105,12 @@ if (dataNode) {
     byId("context-history-value").textContent = String(budget.historyUnits);
     byId("context-document-legend").textContent = String(documentUnits);
     byId("context-answer-legend").textContent = String(answerUnits);
+    byId("context-equation").textContent =
+      `1 інструкції + ${budget.historyUnits} попередніх повідомлень + 1 запиту + ${documentUnits} документа + ${answerUnits} для відповіді = ${budget.total} із 10 місць.`;
+    const unitNames = {
+      instruction: "Інструкції", history: "Історія", query: "Запит",
+      document: "Документ", answer: "Відповідь", free: "Вільно",
+    };
     const units = [
       "instruction",
       ...Array(budget.historyUnits).fill("history"),
@@ -116,21 +122,34 @@ if (dataNode) {
       ...Array.from({ length: 10 }, (_, index) => {
         const cell = make(
           "span",
-          String(index + 1),
+          { instruction: "Правила", history: "Історія", query: "Запит", document: "Док.", answer: "Відп.", free: "Вільно" }[units[index] || "free"],
           `context-unit unit-${units[index] || "free"}`,
         );
+        cell.title = unitNames[units[index] || "free"];
         cell.setAttribute("aria-hidden", "true");
         return cell;
       }),
     );
+    const distribution = Object.entries(unitNames)
+      .map(([key, name]) => `${name}: ${units.slice(0, 10).filter((unit) => unit === key).length + (key === "free" ? budget.remaining : 0)}`)
+      .join(". ");
+    byId("context-desk").setAttribute("aria-label", `Перші 10 місць. ${distribution}. Потрібно загалом: ${budget.total}. Понад ліміт: ${budget.overflow}.`);
     const status = byId("context-status");
     status.dataset.overflow = String(budget.overflow > 0);
     status.textContent = budget.overflow
-      ? `Вам потрібно ${budget.total} із 10 одиниць: ви перевищили ліміт на ${budget.overflow}. Скоротіть вхідні дані, резерв відповіді або розділіть задачу.`
-      : `Ви використали ${budget.total} із 10 одиниць. Вільних: ${budget.remaining}. Для відповіді ви залишили ${answerUnits}.`;
+      ? `Не вміщується: потрібно ${budget.total} місць, а доступно 10. Бракує ${budget.overflow}. На схемі показано лише перші 10 місць — решта не вмістилася; тренажер нічого не скорочує автоматично. Спробуйте «Лише потрібний уривок» або зменште обсяг повзунками.`
+      : `Усе вміщується: потрібно ${budget.total} із 10 місць. Для відповіді залишено ${answerUnits}; ще вільно ${budget.remaining}.`;
   }
   for (const id of ["context-document", "context-answer", "context-summary"])
     byId(id).addEventListener("input", updateContext);
+  document.querySelectorAll("[data-context-document]").forEach((button) =>
+    button.addEventListener("click", () => {
+      byId("context-document").value = button.dataset.contextDocument;
+      byId("context-answer").value = "4";
+      byId("context-summary").checked = false;
+      updateContext();
+    }),
+  );
   byId("context-reset").addEventListener("click", () => {
     byId("context-document").value = "2";
     byId("context-answer").value = "4";
@@ -159,7 +178,7 @@ if (dataNode) {
     byId("keyword-results").replaceChildren(
       ...(exact.length
         ? exact.map((doc) => make("li", doc.title))
-        : [make("li", "Ви не знайшли точних слів запиту в назвах.")]),
+        : [make("li", "Збігів немає: слова із запиту не повторюються в назвах. Близький за темою текст може бути у списку праворуч.")]),
     );
     byId("vector-results").replaceChildren(
       ...nearest.map((doc) => {
@@ -171,7 +190,7 @@ if (dataNode) {
           ),
           make(
             "small",
-            `Умовна відстань: ${doc.distance.toLocaleString("uk", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`,
+            doc.text,
           ),
         );
         return item;
@@ -247,8 +266,9 @@ if (dataNode) {
     queryLabel.textContent = "Ваш запит";
     layer.append(queryLabel);
     svg.append(layer);
-    byId("vector-status").textContent =
-      `Ви знайшли ${nearest.length} найближчих точок на умовній карті та ${exact.length} назв із точними словами. Зіставте результат зі змістом фрагментів.`;
+    byId("vector-status").textContent = exact.length
+      ? `Є збіг слів у назві: «${exact[0].title}». Пошук за змістом також показує близькі тексти. Нижче можна порівняти обидва списки.`
+      : `Однакових слів у назвах немає. Але на карті найближче до запиту розташовано «${nearest[0].title}». Це показує, як пошук за змістом може допомогти, коли формулювання різні.`;
   }
   byId("vector-query").addEventListener("change", updateVectors);
   byId("vector-count").addEventListener("input", updateVectors);

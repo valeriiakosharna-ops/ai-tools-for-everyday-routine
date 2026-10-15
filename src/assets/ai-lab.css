@@ -312,7 +312,7 @@
 }
 .context-desk {
   display: grid;
-  grid-template-columns: repeat(10, minmax(0, 1fr));
+  grid-template-columns: repeat(5, minmax(0, 1fr));
   gap: 6px;
   padding: 15px;
   background: #f0f1f5;
@@ -321,14 +321,17 @@
   margin-top: 25px;
 }
 .context-unit {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  text-align: center;
   display: grid;
   place-items: center;
   height: 48px;
   border-radius: 5px;
   border: 1px solid #d4e1eb;
   font:
-    0.8rem "Courier New",
-    monospace;
+    0.65rem Arial,
+    sans-serif;
   color: var(--ink);
 }
 .unit-instruction {
@@ -763,6 +766,7 @@
     padding: 12px;
   }
   .context-unit {
+    font-size: 0.55rem;
     height: 40px;
   }
   .context-legend {
